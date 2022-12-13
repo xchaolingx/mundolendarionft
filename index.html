@@ -38,3 +38,28 @@ contract NFTMint {
 
 </body>
 </html>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cunhagem de NFT</title>
+</head>
+<body>
+    <h1>Cunhagem de NFT com o contrato inteligente da rede Polygon</h1>
+    <button onclick="mintNFT()">Cunhar NFT</button>
+    <script src="https://polygon.io/sdk.js"></script>
+    <script>
+        function mintNFT() {
+            const polygon = new Polygon();
+
+            // Inicialize a conexão com a rede
+            polygon.onConnect(() => {
+                // Crie um novo contrato inteligente
+                let nftContract = polygon.nft.createContract("<contractAddress>");
+
+                // Crie uma nova NFT
+                nftContract.mint({
+                    id: "<yourNFTId>",
+                    name: "<yourNFTName>",
+                    symbol: "<yourNFTSymbol>"
+                }).then(() => {
+                    console
