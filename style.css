@@ -1,0 +1,41 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: #f4f4f4;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #444;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    margin: 0 0 10px 0;
+}
+
+p {
+    margin: 0 0 15px 0;
+}
+
+a {
+    color: #22a6b3;
+    text-decoration: none;
+}
+
+ul, ol {
+    margin: 0 0 15px 20px;
+    padding: 0;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Clearfix */
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
