@@ -1,25 +1,24 @@
-<!DOCTYPE html>
+
 <html>
+
 <head>
-    <title>Cunhagem de NFT</title>
+  <title>Cunhar NFT</title>
 </head>
+
 <body>
-    <h1>Cunhagem de NFT com o contrato inteligente da rede Polygon</h1>
-    <button onclick="mintNFT()">Cunhar NFT</button>
-    <script src="https://polygon.io/sdk.js"></script>
-    <script>
-        function mintNFT() {
-            const polygon = new Polygon();
+  <h1>Cunhar NFT</h1>
 
-            // Inicialize a conexão com a rede
-            polygon.onConnect(() => {
-                // Crie um novo contrato inteligente
-                let nftContract = polygon.nft.createContract("<contractAddress>");
+  <button type="button" onclick="cunharNFT()">Cunhar NFT</button>
 
-                // Crie uma nova NFT
-                nftContract.mint({
-                    id: "<yourNFTId>",
-                    name: "<yourNFTName>",
-                    symbol: "<yourNFTSymbol>"
-                }).then(() => {
-                    console
+  <script>
+    function cunharNFT() {
+      Polygon.Contract.execute(
+        '0x12345678901234567890', // Contrato inteligente
+        'cunharNFT', // Função
+        [parametros] // Parâmetros
+      );
+    }
+  </script>
+</body>
+
+</html>
