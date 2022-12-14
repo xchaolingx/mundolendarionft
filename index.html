@@ -32,6 +32,26 @@ function getNFTMetadata() {
   // Exibir os metadados da NFT na página
   document.getElementById('nft-metadata').innerText = JSON.stringify(metadata, null, 2);
 }
+  function fetchNFTMetadata(walletAddress, nftId) {
+  // Adicione aqui o código para buscar os metadados da NFT
+  // usando o endereço da carteira e o ID da NFT fornecidos
+  
+  // Por exemplo, você pode usar uma biblioteca como o web3.js
+  // para se comunicar com a blockchain e obter os metadados da NFT
+  
+  // Aqui está um exemplo hipotético de como isso poderia ser implementado:
+  
+  const web3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/v3/<sua-chave-de-API>'));
+  
+  // Carregar o contrato ERC-721 do token NFT
+  const nftContract = new web3.eth.Contract(/* abrir o arquivo JSON do contrato ERC-721 aqui */);
+  
+  // Buscar os metadados da NFT
+  const metadata = nftContract.methods.tokenMetadata(nftId).call({ from: walletAddress });
+  
+  return metadata;
+}
+
 </script>
  </body>
 </html>
