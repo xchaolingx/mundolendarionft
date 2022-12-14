@@ -13,6 +13,20 @@ import { getWeb3 } from '@m-init/web3';
 const web3 = getWeb3('s6vetdTImuHuXOK7XQDIgKZA3UbhEk9rWtL7WKTzOfhjxEUFxKA9ztnJxz2sjguc');
          
          // Inicializar web3
+         if (typeof web3 !== 'undefined') {
+   // O usuário tem a Metamask instalada
+   web3 = new Web3(web3.currentProvider);
+   // Fazer o login com a Metamask
+   web3.eth.getAccounts().then(accounts => {
+      const account = accounts[0];
+      // Exibir o endereço da carteira do usuário
+      document.getElementById('nfts').innerHTML = `<p>Endereço da Carteira: ${account}</p>`;
+   });
+} else {
+   // O usuário não tem a Metamask instalada
+   document.getElementById('nfts').innerHTML = '<p>Por favor, instale a Metamask para continuar</p>';
+}
+
 if (typeof web3 !== 'undefined') {
    web3 = new Web3(web3.currentProvider);
 } else {
