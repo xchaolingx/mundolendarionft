@@ -1,37 +1,29 @@
 <html>
-<head>
-    <title>Exibindo NFTs da Carteira do Usuário</title>
-    <script>
-        function exibirNFTs() {
-            //Obter a carteira do usuário
-            var carteira = document.getElementById('carteira').value;
-            
-            //Realizar a requisição para o servidor
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'http://localhost:8080/carteira/'+ carteira +'/nfts');
-            xhr.send();
-            
-            xhr.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    //Obter a resposta do servidor
-                    var resposta = JSON.parse(xhr.responseText);
-                    
-                    //Exibir a resposta na página
-                    var NFTsContainer = document.getElementById('NFTsContainer');
-                    for (let i=0; i<resposta.length; i++) {
-                        NFTsContainer.innerHTML += '<p>' + resposta[i].nome + '</p>';
-                    }
-                }
-            }
-        }
-    </script>
-</head>
-<body>
-    <h1>Exibindo NFTs da Carteira do Usuário</h1>
-    <input type="text" id="carteira"/>
-    <button onclick="exibirNFTs()">Exibir NFTs</button>
-    <div id="NFTsContainer">
-        
-    </div>
-</body>
+   <head>
+      <title>Exibindo as NFTs da Carteira Metamask do Usuário</title>
+      <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+   </head>
+   <body>
+      <h1>Exibindo as NFTs da Carteira Metamask do Usuário</h1>
+      <div id="nfts"></div>
+      <script>
+         // Inicializar web3
+         if (typeof web3 !== 'undefined') {
+            web3 = new Web3(web3.currentProvider);
+         } else {
+            web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+         }
+         
+         // Obter endereço da carteira Metamask
+         const address = web3.eth.defaultAccount;
+         
+         // Obter NFTs da carteira
+         web3.eth.getAccounts().then(account => {
+            web3.eth.getBalance(account[0]).then(balance => {
+               document.getElementById('nfts').innerHTML = `<p>Endereço da Carteira: ${account[0]}</p>
+               <p>NFTs da Carteira: ${balance}</p>`;
+            });
+         });
+      </script>
+   </body>
 </html>
