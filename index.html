@@ -14,6 +14,18 @@
 
     <!-- Botão para buscar os metadados da NFT -->
     <button onclick="getNFTMetadata()">Buscar metadados</button>
+    
+function fetchNFTMetadata(walletAddress, nftId) {
+  // Obter acesso ao contrato da NFT
+  // (neste exemplo, supomos que existe uma variável "nftContract" que contém a referência ao contrato)
+  const contract = nftContract;
+
+  // Buscar os metadados da NFT no contrato
+  const metadata = contract.methods.getMetadata(nftId).call({ from: walletAddress });
+
+  // Retornar os metadados
+  return metadata;
+}
 
     <!-- Exibição dos metadados da NFT -->
     <pre id="nft-metadata"></pre>
