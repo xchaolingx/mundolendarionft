@@ -1,33 +1,23 @@
-está funcional ? <html>
+<!DOCTYPE html>
+<html>
 <head>
-  <title>Metadados do NFT</title>
+<script src="https://unpkg.com/moralis/dist/moralis.min.js"></script>
+<script>
+  // Crie uma instância da API Moralis
+  const moralis = new Moralis("https://mainnet.infura.io/v3/9aca186230364164a6effd346a333025");
+
+  // Obtenha o endereço da carteira ETH
+  const walletAddress = "0x...";
+
+  // Obtenha os metadados das NFTs na carteira
+  const nftMetadata = await moralis.token.getMetadata(walletAddress);
+
+  // Exiba os metadados das NFTs na página
+  document.getElementById("nft-metadata").innerHTML = JSON.stringify(nftMetadata);
+</script>
 </head>
 <body>
-  <h1>Metadados do NFT</h1>
-  <p>Insira o endereço da carteira:</p>
-  <input type="text" id="walletAddress" />
-  <button onclick="fetchNFTMetadata()">Exibir metadados</button>
-  <div id="metadata"></div>
-
-  <script>
-    function fetchNFTMetadata() {
-      // Obter o endereço da carteira inserido pelo usuário
-      const walletAddress = document.getElementById("walletAddress").value;
-
-      // Realizar uma solicitação GET à API moralis para obter os metadados do NFT
-      fetch(`https://api.moralis.io/nft/metadata?walletAddress=${walletAddress}`)
-        .then(response => response.json())
-        .then(data => {
-          // Exibir os metadados do NFT na página
-          const metadataElement = document.getElementById("metadata");
-          metadataElement.innerHTML = `
-            <p>ID do NFT: ${data.id}</p>
-            <p>Nome do NFT: ${data.name}</p>
-            <p>Descrição do NFT: ${data.description}</p>
-            <p>URL da imagem do NFT: ${data.image_url}</p>
-          `;
-        });
-    }
-  </script>
+  <h1>Metadados de NFTs</h1>
+  <div id="nft-metadata"></div>
 </body>
 </html>
