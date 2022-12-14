@@ -8,22 +8,29 @@
       <div id="nfts"></div>
       <script>
          // Inicializar web3
-         if (typeof web3 !== 'undefined') {
-            web3 = new Web3(web3.currentProvider);
-         } else {
-            web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-         }
-         
-         // Obter endereço da carteira Metamask
-         const address = web3.eth.defaultAccount;
-         
-         // Obter NFTs da carteira
-         web3.eth.getAccounts().then(account => {
-            web3.eth.getBalance(account[0]).then(balance => {
-               document.getElementById('nfts').innerHTML = `<p>Endereço da Carteira: ${account[0]}</p>
-               <p>NFTs da Carteira: ${balance}</p>`;
-            });
-         });
+if (typeof web3 !== 'undefined') {
+   web3 = new Web3(web3.currentProvider);
+} else {
+   web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+}
+
+// Obter endereço da carteira Metamask
+const address = web3.eth.defaultAccount;
+
+// Obter NFTs da carteira
+web3.eth.getAccounts().then(account => {
+   // Obter o contrato da NFT
+   const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+
+   // Obter a lista de tokens da carteira
+   contract.methods.tokensOf(account[0]).call({ from: account[0] }).then(tokens => {
+      // Exibir tokens na página HTML
+      const nftList = tokens.map(tokenId => `<p>Token ID: ${tokenId}</p>`).join('');
+      document.getElementById('nfts').innerHTML = `<p>Endereço da Carteira: ${account[0]}</p>
+                                                   <p>NFTs da Carteira:</p>
+                                                   ${nftList}`;
+   });
+});
       </script>
    </body>
 </html>
