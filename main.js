@@ -1,3 +1,4 @@
+</script>
 function getNFTMetadata() {
   // Obter os valores dos campos de entrada da página
   const walletAddress = document.getElementById('wallet-address').value;
@@ -9,3 +10,4 @@ function getNFTMetadata() {
   // Exibir os metadados na página
   document.getElementById('nft-metadata').innerText = JSON.stringify(metadata, null, 2);
 }
+</script>
