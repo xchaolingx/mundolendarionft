@@ -7,14 +7,20 @@
     <!-- Campo de entrada para a carteira do usuário -->
     <label for="wallet-address">Endereço da carteira:</label><br>
     <input type="text" id="wallet-address" value="0x..."><br><br>
+<!-- Campo de entrada para o ID da NFT -->
+<label for="nft-id">ID da NFT:</label><br>
+<input type="text" id="nft-id" value="0x..."><br><br>
 
-    <!-- Campo de entrada para o ID da NFT -->
-    <label for="nft-id">ID da NFT:</label><br>
-    <input type="text" id="nft-id" value="0x..."><br><br>
+<!-- Botão para buscar os metadados da NFT -->
+<button onclick="getNFTMetadata()">Buscar metadados</button>
 
-    <!-- Botão para buscar os metadados da NFT -->
-    <button onclick="getNFTMetadata()">Buscar metadados</button>
-    
+<!-- Exibição dos metadados da NFT -->
+<pre id="nft-metadata"></pre>
+
+<!-- Inclusão do script JavaScript -->
+<script src="main.js"></script>
+
+<script>
 function fetchNFTMetadata(walletAddress, nftId) {
   // Obter acesso ao contrato da NFT
   // (neste exemplo, supomos que existe uma variável "nftContract" que contém a referência ao contrato)
@@ -26,11 +32,6 @@ function fetchNFTMetadata(walletAddress, nftId) {
   // Retornar os metadados
   return metadata;
 }
-
-    <!-- Exibição dos metadados da NFT -->
-    <pre id="nft-metadata"></pre>
-
-    <!-- Inclusão do script JavaScript -->
-    <script src="main.js"></script>
-  </body>
+</script>
+ </body>
 </html>
