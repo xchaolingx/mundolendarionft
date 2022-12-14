@@ -1,58 +1,33 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Metadados de NFT</title>
-  </head>
-  <body>
-    <!-- Campo de entrada para a carteira do usuário -->
-    <label for="wallet-address">Endereço da carteira:</label><br>
-    <input type="text" id="wallet-address" value="0x..."><br><br>
-<!-- Campo de entrada para o ID da NFT -->
-<label for="nft-id">ID da NFT:</label><br>
-<input type="text" id="nft-id" value="0x..."><br><br>
+está funcional ? <html>
+<head>
+  <title>Metadados do NFT</title>
+</head>
+<body>
+  <h1>Metadados do NFT</h1>
+  <p>Insira o endereço da carteira:</p>
+  <input type="text" id="walletAddress" />
+  <button onclick="fetchNFTMetadata()">Exibir metadados</button>
+  <div id="metadata"></div>
 
-<!-- Botão para buscar os metadados da NFT -->
-<button onclick="getNFTMetadata()">Buscar metadados</button>
+  <script>
+    function fetchNFTMetadata() {
+      // Obter o endereço da carteira inserido pelo usuário
+      const walletAddress = document.getElementById("walletAddress").value;
 
-<!-- Exibição dos metadados da NFT -->
-<pre id="nft-metadata"></pre>
-
-<!-- Inclusão do script JavaScript -->
-<script src="main.js"></script>
-
-<script>
-function getNFTMetadata() {
-  // Obter os valores dos campos de entrada
-  const walletAddress = document.getElementById('wallet-address').value;
-  const nftId = document.getElementById('nft-id').value;
-
-  // Buscar os metadados da NFT
-  const metadata = fetchNFTMetadata(walletAddress, nftId);
-
-  // Exibir os metadados da NFT na página
-  document.getElementById('nft-metadata').innerText = JSON.stringify(metadata, null, 2);
-}
-
-
-<script>
-function getNFTMetadata() {
-  // Obter os valores dos campos de entrada
-  const walletAddress = document.getElementById('wallet-address').value;
-  const nftId = document.getElementById('nft-id').value;
-
-  // Buscar os metadados da NFT usando a API morallis
-  fetch('https://api.moralis.io/nft/metadata', {
-    method: 'POST',
-    body: JSON.stringify({
-      walletAddress: walletAddress,
-      nftId: nftId
-    })
-  }).then(response => response.json())
-    .then(metadata => {
-      // Exibir os metadados da NFT na página
-      document.getElementById('nft-metadata').innerText = JSON.stringify(metadata, null, 2);
-    });
-}
-</script>
- </body>
+      // Realizar uma solicitação GET à API moralis para obter os metadados do NFT
+      fetch(`https://api.moralis.io/nft/metadata?walletAddress=${walletAddress}`)
+        .then(response => response.json())
+        .then(data => {
+          // Exibir os metadados do NFT na página
+          const metadataElement = document.getElementById("metadata");
+          metadataElement.innerHTML = `
+            <p>ID do NFT: ${data.id}</p>
+            <p>Nome do NFT: ${data.name}</p>
+            <p>Descrição do NFT: ${data.description}</p>
+            <p>URL da imagem do NFT: ${data.image_url}</p>
+          `;
+        });
+    }
+  </script>
+</body>
 </html>
