@@ -1,34 +1,23 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>NFTs de dois IDs específicos</title>
-</head>
-<body>
-  <h1>Meus NFTs</h1>
-  <div id="nft-container"></div>
-  <input type="text" id="wallet-id-input" />
-  <button id="submit-button">Enviar</button>
-  <script>
-    // Obtenha os dois IDs da carteira do usuário
-    const walletId1 = "12345";
-    const walletId2 = "67890";
-// Faça uma chamada à API para obter os NFTs correspondentes aos IDs da carteira
-const submitButton = document.getElementById("submit-button");
-submitButton.addEventListener("click", () => {
-  const walletIdInput = document.getElementById("wallet-id-input");
-  const walletId = walletIdInput.value;
-  fetch(`https://api.mynftplatform.com/nfts?walletId=${walletId}`)
-    .then(response => response.json())
-    .then(nfts => {
-      // Loop pelos NFTs retornados e exiba cada um
-      for (const nft of nfts) {
-        const nftElement = document.createElement("img");
-        nftElement.src = nft.imageUrl;
-        nftElement.alt = nft.name;
-        document.getElementById("nft-container").appendChild(nftElement);
+  <head>
+    <title>Minhas NFTs</title>
+  </head>
+  <body>
+    <h1>Minhas NFTs</h1>
+    <p>Insira o endereço da sua carteira:</p>
+    <input id="wallet-address" type="text" />
+    <button onclick="getNFTs()">Exibir NFTs</button>
+    <div id="nfts"></div>
+
+    <script>
+      function getNFTs() {
+        // Obter o endereço da carteira inserido pelo usuário
+        const walletAddress = document.getElementById('wallet-address').value;
+
+        // Fazer a chamada para a API para obter as NFTs da carteira
+        // e exibir os resultados na página
       }
-    });
-});
-  </script>
-</body>
+    </script>
+  </body>
 </html>
