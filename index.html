@@ -94,21 +94,20 @@
       window.web3 = new Web3(ethereum);
       try {
         ethereum.enable();
-        // aqui você altera o texto do botão para o endereço da carteira
-        document.getElementById('wallet').innerHTML = web3.eth.accounts[0];
+        // aqui você pode alterar o texto do botão para o endereço da carteira
+        document.getElementById('connect-button').innerHTML = web3.eth.accounts[0];
       } catch (error) {
         console.error(error);
       }
     } else if (typeof window.web3 !== 'undefined') {
       window.web3 = new Web3(web3.currentProvider);
-      // aqui você altera o texto do botão para o endereço da carteira
-      document.getElementById('wallet').innerHTML = web3.eth.accounts[0];
+      // aqui você pode alterar o texto do botão para o endereço da carteira
+      document.getElementById('connect-button').innerHTML = web3.eth.accounts[0];
     } else {
       console.error('Nenhum provedor de Web3 encontrado');
     }
   }
-
-
+</script>
 
 
 
