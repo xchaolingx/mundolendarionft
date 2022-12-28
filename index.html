@@ -78,9 +78,14 @@
         </ul>
 
       </nav>
+<!-- botão -->
+<a href="#" class="btn" aria-labelledby="wallet" onclick="connectToWallet()">
+  <ion-icon name="wallet-outline"></ion-icon>
 
-<button id="connect-button" onclick="connectToWallet()">Conectar com Metamask</button>
+  <span id="wallet">Conectar Wallet</span>
+</a>
 
+<!-- função que conecta à carteira -->
 <script>
   function connectToWallet() {
     if (typeof window.ethereum !== 'undefined') {
@@ -88,19 +93,20 @@
       try {
         ethereum.enable();
         // aqui você pode alterar o texto do botão para o endereço da carteira
-        document.getElementById('connect-button').innerHTML = web3.eth.accounts[0];
+        document.getElementById('wallet').innerHTML = web3.eth.accounts[0];
       } catch (error) {
         console.error(error);
       }
     } else if (typeof window.web3 !== 'undefined') {
       window.web3 = new Web3(web3.currentProvider);
       // aqui você pode alterar o texto do botão para o endereço da carteira
-      document.getElementById('connect-button').innerHTML = web3.eth.accounts[0];
+      document.getElementById('wallet').innerHTML = web3.eth.accounts[0];
     } else {
       console.error('Nenhum provedor de Web3 encontrado');
     }
   }
 </script>
+
 
 
 
