@@ -79,10 +79,8 @@
 
       </nav>
 
-<button id="connect-button">Conectar com Metamask</button>
-
 <script>
-  document.getElementById('connect-button').addEventListener('click', function() {
+  function connectToWallet() {
     if (typeof window.ethereum !== 'undefined') {
       window.web3 = new Web3(ethereum);
       try {
@@ -95,8 +93,18 @@
     } else {
       console.error('Nenhum provedor de Web3 encontrado');
     }
-  });
+  }
 </script>
+<button class="menu-open-btn" aria-label="Open Menu" data-nav-open-btn onclick="connectToWallet()">
+  <ion-icon name="menu-outline"></ion-icon>
+</button>
+
+<a href="#" class="btn" aria-labelledby="wallet" onclick="connectToWallet()">
+  <ion-icon name="wallet-outline"></ion-icon>
+
+  <span id="wallet">Conectar Wallet</span>
+</a>
+
 
 
     </div>
