@@ -79,33 +79,29 @@
 
       </nav>
 
-<button class="menu-open-btn" aria-label="Open Menu" data-nav-open-btn onclick="connectToWallet()">
-  <ion-icon name="menu-outline"></ion-icon>
-</button>
+<button id="connect-button">Conectar com Metamask</button>
 
-<a href="#" class="btn" aria-labelledby="wallet" onclick="connectToWallet()">
-  <ion-icon name="wallet-outline"></ion-icon>
-
-  <span id="wallet">Conectar Wallet</span>
-</a>
+<script>
+  document.getElementById('connect-button').addEventListener('click', function() {
+    if (typeof window.ethereum !== 'undefined') {
+      window.web3 = new Web3(ethereum);
+      try {
+        ethereum.enable();
+      } catch (error) {
+        console.error(error);
+      }
+    } else if (typeof window.web3 !== 'undefined') {
+      window.web3 = new Web3(web3.currentProvider);
+    } else {
+      console.error('Nenhum provedor de Web3 encontrado');
+    }
+  });
+</script>
 
 
     </div>
   </header>
-function connectToWallet() {
-  if (typeof window.ethereum !== 'undefined') {
-    window.web3 = new Web3(ethereum);
-    try {
-      ethereum.enable();
-    } catch (error) {
-      console.error(error);
-    }
-  } else if (typeof window.web3 !== 'undefined') {
-    window.web3 = new Web3(web3.currentProvider);
-  } else {
-    console.error('Nenhum provedor de Web3 encontrado');
-  }
-}
+
 
 
 
