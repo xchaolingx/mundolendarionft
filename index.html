@@ -113,16 +113,9 @@
     } else {
       console.error('Nenhum provedor de Web3 encontrado');
     }
-  }
-  
-  const connectButton = document.getElementById('connect-button');
-
-connectButton.addEventListener('click', () => {
-  // Conecte a carteira aqui usando a função connectToWallet()
-
-  // Depois que a carteira for conectada, atualize o conteúdo do botão
-  connectButton.innerHTML = `Endereço da carteira: ${window.web3.eth.defaultAccount}`;
-});
+  // Adicionar código para alterar o texto do botão aqui
+  document.getElementById("wallet").innerHTML = "Endereço da carteira: " + window.web3.eth.defaultAccount;
+}
 
   
 </script>
