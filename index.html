@@ -79,55 +79,29 @@
 
       </nav>
 
-<script>
-  
-  function connectToWallet() {
-  if (typeof window.ethereum !== 'undefined') {
-    window.web3 = new Web3(ethereum);
-    try {
-      ethereum.enable().then(function(accounts) {
-        // Atualiza o texto do botão com o endereço da carteira do usuário
-        document.getElementById('wallet').textContent = accounts[0];
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  } else if (typeof window.web3 !== 'undefined') {
-    window.web3 = new Web3(web3.currentProvider);
-  } else {
-    console.error('Nenhum provedor de Web3 encontrado');
-  }
-}
+<button id="connect-button">Conectar com Metamask</button>
+<button id="connect-button" onclick="connectToWallet()">Conectar com Metamask</button>
 
-  
+<script>
   function connectToWallet() {
     if (typeof window.ethereum !== 'undefined') {
       window.web3 = new Web3(ethereum);
       try {
         ethereum.enable();
+        // aqui você pode alterar o texto do botão para o endereço da carteira
+        document.getElementById('connect-button').innerHTML = web3.eth.accounts[0];
       } catch (error) {
         console.error(error);
       }
     } else if (typeof window.web3 !== 'undefined') {
       window.web3 = new Web3(web3.currentProvider);
+      // aqui você pode alterar o texto do botão para o endereço da carteira
+      document.getElementById('connect-button').innerHTML = web3.eth.accounts[0];
     } else {
       console.error('Nenhum provedor de Web3 encontrado');
     }
-  // Adicionar código para alterar o texto do botão aqui
-  document.getElementById("wallet").innerHTML = "Endereço da carteira: " + window.web3.eth.defaultAccount;
-}
-
-  
+  }
 </script>
-<button class="menu-open-btn" aria-label="Open Menu" data-nav-open-btn onclick="connectToWallet()">
-  <ion-icon name="menu-outline"></ion-icon>
-</button>
-
-<a href="#" class="btn" aria-labelledby="wallet" onclick="connectToWallet()">
-  <ion-icon name="wallet-outline"></ion-icon>
-
-  <span id="wallet">Conectar Wallet</span>
-</a>
 
 
 
