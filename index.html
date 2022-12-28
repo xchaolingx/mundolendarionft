@@ -80,6 +80,24 @@
       </nav>
 
 <script>
+  function connectToWallet() {
+  if (typeof window.ethereum !== 'undefined') {
+    window.web3 = new Web3(ethereum);
+    try {
+      ethereum.enable().then(function(accounts) {
+        // Atualiza o texto do botão com o endereço da carteira do usuário
+        document.getElementById('wallet').textContent = accounts[0];
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  } else if (typeof window.web3 !== 'undefined') {
+    window.web3 = new Web3(web3.currentProvider);
+  } else {
+    console.error('Nenhum provedor de Web3 encontrado');
+  }
+}
+
   
   function connectToWallet() {
     if (typeof window.ethereum !== 'undefined') {
@@ -106,23 +124,6 @@
   <span id="wallet">Conectar Wallet</span>
 </a>
 
-function connectToWallet() {
-  if (typeof window.ethereum !== 'undefined') {
-    window.web3 = new Web3(ethereum);
-    try {
-      ethereum.enable().then(function(accounts) {
-        // Atualiza o texto do botão com o endereço da carteira do usuário
-        document.getElementById('wallet').textContent = accounts[0];
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  } else if (typeof window.web3 !== 'undefined') {
-    window.web3 = new Web3(web3.currentProvider);
-  } else {
-    console.error('Nenhum provedor de Web3 encontrado');
-  }
-}
 
 
     </div>
