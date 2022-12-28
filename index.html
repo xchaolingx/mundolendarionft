@@ -80,6 +80,25 @@
       </nav>
 
 <script>
+  async function connectToWallet() {
+  if (typeof window.ethereum !== 'undefined') {
+    window.web3 = new Web3(ethereum);
+    try {
+      await ethereum.enable();
+      const accounts = await web3.eth.getAccounts();
+      // altera o texto do botão para o endereço da carteira
+      document.getElementById('wallet').innerHTML = accounts[0];
+    } catch (error) {
+      console.error(error);
+    }
+  } else if (typeof window.web3 !== 'undefined') {
+    window.web3 = new Web3(web3.currentProvider);
+  } else {
+    console.error('Nenhum provedor de Web3 encontrado');
+  }
+}
+
+  
   function connectToWallet() {
     if (typeof window.ethereum !== 'undefined') {
       window.web3 = new Web3(ethereum);
