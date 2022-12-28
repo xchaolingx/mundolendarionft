@@ -88,30 +88,17 @@
       </button>
 <button id="connect-button">Conectar com Metamask</button>
 
-<script>
-  // Obtém o botão de conexão
-  const connectButton = document.getElementById('connect-button');
+      <button class="menu-open-btn" aria-label="Open Menu" data-nav-open-btn onclick="connectToWallet()">
+  <ion-icon name="menu-outline"></ion-icon>
+</button>
 
-  // Adiciona um evento de clique ao botão
-  connectButton.addEventListener('click', () => {
-    // Verifica se a Metamask está instalada
-    if (typeof window.ethereum === 'undefined') {
-      alert('Por favor, instale a Metamask para continuar');
-      return;
-    }
+<a href="#" class="btn" aria-labelledby="wallet" onclick="connectToWallet()">
+  <ion-icon name="wallet-outline"></ion-icon>
 
-    // Solicita acesso à carteira do usuário
-    window.ethereum.enable()
-      .then(() => {
-        // Se o acesso for concedido, exibe uma mensagem de sucesso
-        alert('Carteira conectada com sucesso');
-      })
-      .catch(error => {
-        // Se o acesso for negado, exibe uma mensagem de erro
-        alert('Erro ao conectar à carteira: ' + error.message);
-      });
-  });
-</script>
+  <span id="wallet">Conectar Wallet</span>
+</a>
+
+      
       <a href="#" class="btn" aria-labelledby="wallet">
         <ion-icon name="wallet-outline"></ion-icon>
 
@@ -120,6 +107,20 @@
 
     </div>
   </header>
+function connectToWallet() {
+  if (typeof window.ethereum !== 'undefined') {
+    window.web3 = new Web3(ethereum);
+    try {
+      ethereum.enable();
+    } catch (error) {
+      console.error(error);
+    }
+  } else if (typeof window.web3 !== 'undefined') {
+    window.web3 = new Web3(web3.currentProvider);
+  } else {
+    console.error('Nenhum provedor de Web3 encontrado');
+  }
+}
 
 
 
