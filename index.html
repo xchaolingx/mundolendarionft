@@ -78,7 +78,6 @@
         </ul>
 
       </nav>
-
 <button class="menu-open-btn" aria-label="Open Menu" data-nav-open-btn onclick="connectToWallet()">
   <ion-icon name="menu-outline"></ion-icon>
 </button>
@@ -90,41 +89,40 @@
 </a>
 
 <script>
-let walletAddress;
+  let walletAddress;
 
-function connectToWallet() {
-  if (typeof window.ethereum !== 'undefined') {
-    window.web3 = new Web3(ethereum);
-    try {
-      ethereum.enable();
-    } catch (error) {
-      console.error(error);
+  function connectToWallet() {
+    if (typeof window.ethereum !== 'undefined') {
+      window.web3 = new Web3(ethereum);
+      try {
+        ethereum.enable();
+      } catch (error) {
+        console.error(error);
+      }
+    } else if (typeof window.web3 !== 'undefined') {
+      window.web3 = new Web3(web3.currentProvider);
+    } else {
+      console.error('Nenhum provedor de Web3 encontrado');
     }
-  } else if (typeof window.web3 !== 'undefined') {
-    window.web3 = new Web3(web3.currentProvider);
-  } else {
-    console.error('Nenhum provedor de Web3 encontrado');
-  }
 
-  // adiciona um gatilho para o evento accountsChanged
-  window.ethereum.on('accountsChanged', function (accounts) {
-    walletAddress = accounts[0];
-    // altera o texto do botão para o endereço da carteira atualmente selecionada pelo usuário,
-    // mas somente se o endereço ainda não tiver sido definido
+    // adiciona um gatilho para o evento accountsChanged
+    window.ethereum.on('accountsChanged', function (accounts) {
+      walletAddress = accounts[0];
+      // altera o texto do botão para o endereço da carteira atualmente selecionada pelo usuário,
+      // mas somente se o endereço ainda não tiver sido definido
+      if (!walletAddress) {
+        document.getElementById('wallet').innerHTML = walletAddress;
+      }
+    });
+
+    // verifica se o endereço da carteira foi definido e, se não tiver sido, define o texto do botão com o endereço atualmente selecionado pelo usuário
     if (!walletAddress) {
+      walletAddress = web3.eth.accounts[0];
       document.getElementById('wallet').innerHTML = walletAddress;
     }
-  });
-
-  // verifica se o endereço da carteira foi definido e, se não tiver sido, define o texto do botão com o endereço atualmente selecionado pelo usuário
-  if (!walletAddress) {
-    walletAddress = web3.eth.accounts[0];
-    document.getElementById('wallet').innerHTML = walletAddress;
   }
-}
-
-
 </script>
+
 
 
 
