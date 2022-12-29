@@ -109,7 +109,11 @@
       document.getElementById('wallet').innerHTML = accounts[0];
     });
   }
+
+  // chama a função connectToWallet sempre que a página é atualizada
+  window.addEventListener('load', connectToWallet);
 </script>
+
 
 
 
