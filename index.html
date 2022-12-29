@@ -94,6 +94,9 @@
       window.web3 = new Web3(ethereum);
       try {
         ethereum.enable();
+        if (typeof window.web3 !== 'undefined') {
+          window.web3 = new Web3(web3.currentProvider);
+        }
         // aqui você pode alterar o texto do botão para o endereço da carteira
         document.getElementById('wallet').innerHTML = web3.eth.accounts[0];
       } catch (error) {
@@ -102,6 +105,7 @@
     }
   }
 </script>
+
 
 
 
