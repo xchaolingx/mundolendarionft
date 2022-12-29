@@ -94,17 +94,23 @@
       window.web3 = new Web3(ethereum);
       try {
         ethereum.enable();
-        if (typeof window.web3 !== 'undefined') {
-          window.web3 = new Web3(web3.currentProvider);
-        }
-        // aqui você pode alterar o texto do botão para o endereço da carteira
-        document.getElementById('wallet').innerHTML = web3.eth.accounts[0];
       } catch (error) {
         console.error(error);
       }
+    } else if (typeof window.web3 !== 'undefined') {
+      window.web3 = new Web3(web3.currentProvider);
+    } else {
+      console.error('Nenhum provedor de Web3 encontrado');
     }
+
+    // adiciona um gatilho para o evento accountsChanged
+    window.ethereum.on('accountsChanged', function (accounts) {
+      // altera o texto do botão para o endereço da carteira atualmente selecionada pelo usuário
+      document.getElementById('wallet').innerHTML = accounts[0];
+    });
   }
 </script>
+
 
 
 
