@@ -89,25 +89,30 @@
 </a>
 
 <script>
-  function connectToWallet() {
-    if (typeof window.ethereum !== 'undefined') {
-      window.web3 = new Web3(ethereum);
-      try {
-        ethereum.enable();
-      } catch (error) {
-        console.error(error);
-      }
-    } else if (typeof window.web3 !== 'undefined') {
-      window.web3 = new Web3(web3.currentProvider);
-    } else {
-      console.error('Nenhum provedor de Web3 encontrado');
-    }
+  var web3;
 
-    // adiciona um gatilho para o evento accountsChanged
-    window.ethereum.on('accountsChanged', function (accounts) {
-      // altera o texto do botão para o endereço da carteira atualmente selecionada pelo usuário
-      document.getElementById('wallet').innerHTML = accounts[0];
-    });
+  function connectToWallet() {
+    // verifica se a conexão com a carteira já foi estabelecida
+    if (!web3) {
+      if (typeof window.ethereum !== 'undefined') {
+        web3 = new Web3(ethereum);
+        try {
+          ethereum.enable();
+        } catch (error) {
+          console.error(error);
+        }
+      } else if (typeof window.web3 !== 'undefined') {
+        web3 = new Web3(web3.currentProvider);
+      } else {
+        console.error('Nenhum provedor de Web3 encontrado');
+      }
+
+      // adiciona um gatilho para o evento accountsChanged
+      window.ethereum.on('accountsChanged', function (accounts) {
+        // altera o texto do botão para o endereço da carteira atualmente selecionada pelo usuário
+        document.getElementById('wallet').innerHTML = accounts[0];
+      });
+    }
   }
 
   // chama a função connectToWallet sempre que a página é atualizada
