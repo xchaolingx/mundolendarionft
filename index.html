@@ -90,29 +90,36 @@
 </a>
 
 <script>
-  function connectToWallet() {
-    if (typeof window.ethereum !== 'undefined') {
-      window.web3 = new Web3(ethereum);
-      try {
-        ethereum.enable();
-      } catch (error) {
-        console.error(error);
-      }
-    } else if (typeof window.web3 !== 'undefined') {
-      window.web3 = new Web3(web3.currentProvider);
-    } else {
-      console.error('Nenhum provedor de Web3 encontrado');
-    }
+let walletAddress;
 
-    // adiciona um gatilho para o evento accountsChanged
-    window.ethereum.on('accountsChanged', function (accounts) {
-      // altera o texto do botão para o endereço da carteira atualmente selecionada pelo usuário
-      document.getElementById('wallet').innerHTML = accounts[0];
-    });
+function connectToWallet() {
+  if (typeof window.ethereum !== 'undefined') {
+    window.web3 = new Web3(ethereum);
+    try {
+      ethereum.enable();
+    } catch (error) {
+      console.error(error);
+    }
+  } else if (typeof window.web3 !== 'undefined') {
+    window.web3 = new Web3(web3.currentProvider);
+  } else {
+    console.error('Nenhum provedor de Web3 encontrado');
   }
 
-  // chama a função connectToWallet sempre que a página é atualizada
-  window.addEventListener('load', connectToWallet);
+  // adiciona um gatilho para o evento accountsChanged
+  window.ethereum.on('accountsChanged', function (accounts) {
+    walletAddress = accounts[0];
+    // altera o texto do botão para o endereço da carteira atualmente selecionada pelo usuário,
+    // mas somente se o endereço ainda não tiver sido definido
+    if (!walletAddress) {
+      document.getElementById('wallet').innerHTML = walletAddress;
+    }
+  });
+}
+
+// chama a função connectToWallet sempre que a página é atualizada
+window.addEventListener('load', connectToWallet);
+
 </script>
 
 
