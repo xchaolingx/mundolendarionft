@@ -115,13 +115,13 @@
       }
     });
 
-    // verifica se o endereço da carteira foi definido e, se não tiver sido, define o texto do botão com o endereço atualmente selecionado pelo usuário
-    if (!walletAddress) {
-      walletAddress = web3.eth.accounts[0];
-      document.getElementById('wallet').innerHTML = walletAddress;
-    }
+    // verifica se o endereço da carteira foi definido e, se não tiver sido, define o texto do botão com o endereç
   }
+
+  // chama a função connectToWallet sempre que a página é atualizada
+  window.addEventListener('load', connectToWallet);
 </script>
+v
 
 
 
