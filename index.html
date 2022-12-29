@@ -78,6 +78,7 @@
         </ul>
 
       </nav>
+
 <button class="menu-open-btn" aria-label="Open Menu" data-nav-open-btn onclick="connectToWallet()">
   <ion-icon name="menu-outline"></ion-icon>
 </button>
@@ -90,27 +91,24 @@
 
 <script>
   function connectToWallet() {
-    // verifica se a conexão com a carteira já foi estabelecida
-    if (!web3) {
-      if (typeof window.ethereum !== 'undefined') {
-        web3 = new Web3(ethereum);
-        try {
-          ethereum.enable();
-        } catch (error) {
-          console.error(error);
-        }
-      } else if (typeof window.web3 !== 'undefined') {
-        web3 = new Web3(web3.currentProvider);
-      } else {
-        console.error('Nenhum provedor de Web3 encontrado');
+    if (typeof window.ethereum !== 'undefined') {
+      window.web3 = new Web3(ethereum);
+      try {
+        ethereum.enable();
+      } catch (error) {
+        console.error(error);
       }
-
-      // adiciona um gatilho para o evento accountsChanged
-      window.ethereum.on('accountsChanged', function (accounts) {
-        // altera o texto do botão para o endereço da carteira atualmente selecionada pelo usuário
-        document.getElementById('wallet').innerHTML = accounts[0];
-      });
+    } else if (typeof window.web3 !== 'undefined') {
+      window.web3 = new Web3(web3.currentProvider);
+    } else {
+      console.error('Nenhum provedor de Web3 encontrado');
     }
+
+    // adiciona um gatilho para o evento accountsChanged
+    window.ethereum.on('accountsChanged', function (accounts) {
+      // altera o texto do botão para o endereço da carteira atualmente selecionada pelo usuário
+      document.getElementById('wallet').innerHTML = accounts[0];
+    });
   }
 
   // chama a função connectToWallet sempre que a página é atualizada
