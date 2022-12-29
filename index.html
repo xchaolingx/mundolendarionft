@@ -95,22 +95,14 @@
       try {
         ethereum.enable();
         // aqui você pode alterar o texto do botão para o endereço da carteira
-        document.getElementById('connect-button').innerHTML = web3.eth.accounts[0];
+        document.getElementById('wallet').innerHTML = web3.eth.accounts[0];
       } catch (error) {
         console.error(error);
       }
-if (typeof window.ethereum !== 'undefined') {
-  window.web3 = new Web3(ethereum);
-  try {
-    ethereum.enable();
-    // aqui você pode alterar o texto do botão para o endereço da carteira
-    document.getElementById('wallet').innerHTML = web3.eth.accounts[0];
-  } catch (error) {
-    console.error(error);
+    }
   }
-}
-
 </script>
+
 
 
 
