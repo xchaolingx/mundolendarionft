@@ -107,12 +107,22 @@
     window.ethereum.on('accountsChanged', function (accounts) {
       // altera o texto do botão para o endereço da carteira atualmente selecionada pelo usuário
       document.getElementById('wallet').innerHTML = accounts[0];
+      // armazena o endereço da carteira em um armazenamento local
+      localStorage.setItem('walletAddress', accounts[0]);
     });
+
+    // recupera o endereço da carteira armazenado no armazenamento local, caso exista
+    const walletAddress = localStorage.getItem('walletAddress');
+    if (walletAddress) {
+      // altera o texto do botão para o endereço da carteira armazenado
+      document.getElementById('wallet').innerHTML = walletAddress;
+    }
   }
 
   // chama a função connectToWallet sempre que a página é atualizada
   window.addEventListener('load', connectToWallet);
 </script>
+
 
 
 
