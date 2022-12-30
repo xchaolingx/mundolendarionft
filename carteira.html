@@ -3,82 +3,54 @@
 <html>
 <head>
 <body>
-  <h1>Meus NFTs</h1>
+ <script src="https://cdn.opensea.io/opensea-js/latest/opensea.min.js"></script>
+<div id="nft-container"></div>
+   <script >
+function getNFTs() {
+  // Defina o endereço da coleção e o número de NFTs a serem obtidos
+  const collectionAddress = '0x...';
+  const numNFTs = 2;
 
-  <!-- Adicione seu endereço de carteira aqui -->
-  <p>Endereço da carteira: 0x0000000000000000000000000000000000000000</p>
+  // Obtenha os NFTs da coleção usando a biblioteca da OpenSea
+  opensea.assets.getAssets({
+    orderBy: 'id',
+    orderDirection: 'asc',
+    assetContractAddresses: [collectionAddress],
+    limit: numNFTs,
+  }).then((assets) => {
+    // Itere sobre cada NFT e crie um card para exibição
+    assets.forEach((asset) => {
+      createNFTCard(asset);
+    });
+  }).catch((error) => {
+    console.error(error);
+  });
+}
+ function createNFTCard(nft) {
+  // Crie os elementos HTML do card
+  const card = document.createElement('div');
+  const image = document.createElement('img');
+  const name = document.createElement('h3');
+  const description = document.createElement('p');
 
-  <!-- Container para os cards dos NFTs -->
-  <div id="nft-cards"></div>
+  // Defina as propriedades dos elementos HTML do card
+  card.classList.add('nft-card');
+  image.src = nft.image_url;
+  name.innerText = nft.name;
+  description.innerText = nft.description;
 
-  <!-- Inclua o script do OpenSea -->
-  <script src="https://cdn.opensea.io/scripts/v1/opensea.js"></script>
+  // Adicione os elementos HTML ao card
+  card.appendChild(image);
+  card.appendChild(name);
+  card.appendChild(description);
 
-  <!-- Inclua o código JavaScript para carregar os NFTs da carteira -->
-  <script>
-    // Defina o endereço da carteira e o nome da coleção
-    const walletAddress = '0x0000000000000000000000000000000000000000';
-    const collectionName = 'Minha coleção';
-
-    // Carregue os NFTs da carteira
-    OpenSea.getAssets({
-      owner: walletAddress,
-      orderBy: 'created_at',
-      orderDirection: 'asc',
-      limit: 50,
-      assetContract: collectionName
-    }).then(assets => {
-      // Para cada NFT, crie um card e adicione ao container
-      for (let asset of assets) {
-        // Crie o card
-        const card = document.createElement('div');
-        card.classList.add('card');
-
-        // Adicione o título do NFT ao card
-        const title = document.createElement('h2');
-        title.textContent = asset.name;
-        card.appendChild(title);
-
-        // Adicione a imagem do NFT ao card
-        const image = document.createElement('img');
-        image.src = asset.image_url;
-        card.appendChild(image);
-
-    // Adiciona o título ao card
-    const titulo = document.createElement('h3');
-    titulo.textContent = nft.titulo;
-    card.appendChild(titulo);
+  // Adicione o card ao container
+  document.getElementById('nft-container').appendChild(card);
+}
+window.addEventListener('load', getNFTs);
     
-        // Obtenha os dados do NFT
-const nftData = {
-  id: '123456',
-  name: 'Meu NFT',
-  imageUrl: 'https://example.com/image.png',
-  description: 'Uma descrição do meu NFT'
-};
-
-// Crie um elemento div para o card
-const card = document.createElement('div');
-card.classList.add('card');
-
-// Adicione a imagem do NFT ao card
-const image = document.createElement('img');
-image.src = nftData.imageUrl;
-card.appendChild(image);
-
-// Crie um elemento p para o nome do NFT
-const name = document.createElement('p');
-name.textContent = nftData.name;
-card.appendChild(name);
-
-// Crie um elemento p para a descrição do NFT
-const description = document.createElement('p');
-description.textContent = nftData.description;
-card.appendChild(description);
-
-// Adicione o card ao container
-const container = document.getElementById('nft-container');
-container.appendChild(card);
+     
+</script>
         </body>
 </head>
 
