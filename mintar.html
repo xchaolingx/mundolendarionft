@@ -61,6 +61,9 @@ const collectionId = "0xb1690c08e213a35ed9bab7b318de14420fb4d45f";
     window.addEventListener('load', async () => {
       // Inicializa a API do OpenSea
       const opensea = new OpenSea();
+      console.log('Página carregada');
+console.log('Inicializando OpenSea...');
+
 
       // Busca os NFTs da coleção especificada
       const assets = await opensea.assets.get({
