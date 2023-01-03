@@ -1,0 +1,44 @@
+<script src="https://unpkg.com/opensea-js@latest/dist/opensea.js"></script>
+
+<script>
+  // Substitua "COLLECTION_ID" pelo ID da sua coleção de NFTs
+  const collectionId = "0x06012c8cf97bead5deae237070f9587f8e7a266d";
+
+  // Define a função que será chamada quando a página for carregada
+  window.addEventListener('load', async () => {
+    // Inicializa a API do OpenSea
+    const opensea = new OpenSea();
+
+    // Busca os NFTs da coleção especificada
+    const assets = await opensea.assets.get({
+      order_by: 'current_price',
+      order_direction: 'asc',
+      collection: collectionId,
+    });
+
+    // Obtém o elemento onde os cards serão adicionados
+    const container = document.getElementById('container');
+
+    // Itera por cada NFT da coleção
+    assets.forEach(asset => {
+      // Cria o elemento do card
+      const card = document.createElement('div');
+      card.classList.add('card');
+
+      // Cria o elemento da imagem do NFT
+      const image = document.createElement('img');
+      image.src = asset.image_url;
+      card.appendChild(image);
+
+      // Cria o elemento do nome do NFT
+      const name = document.createElement('h3');
+      name.textContent = asset.name;
+      card.appendChild(name);
+
+      // Adiciona o card ao container
+      container.appendChild(card);
+    });
+  });
+</script>
+<div id="container"></div>
+
